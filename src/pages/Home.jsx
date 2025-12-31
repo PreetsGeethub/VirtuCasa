@@ -1,20 +1,16 @@
-import Navbar from "../components/Navbar";
+import Header from "../components/Header";
+import React from "react";
+import Hero from "../components/Hero";
+
 
 const Home = () => {
   return (
     <>
-      <Navbar />
-      <main>
-        <section className="h-screen bg-black text-white">
-          Hero Section
-        </section>
+      <Header />
 
-        <section className="h-screen bg-gray-900 text-white">
-          Section One
-        </section>
-
-        <section className="h-screen bg-gray-800 text-white">
-          Section Two
+      <main className="pt-20">
+        <section className="">
+          <Hero/>
         </section>
       </main>
     </>
