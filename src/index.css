@@ -3,8 +3,7 @@
 body {
   font-family: 'Inter', sans-serif;
 }
-@tailwind components;
-@tailwind utilities;
+
 
 /* ===============================
    HERO BACKGROUND – GRID + DOTS

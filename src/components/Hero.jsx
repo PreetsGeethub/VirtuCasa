@@ -56,7 +56,7 @@ function Hero() {
                     {/* RIGHT VISUAL */}
                     <div className="relative flex justify-center animate-fade-up animate-delay-200">
                         <img
-                            src="/images/head.png"
+                            src="/assests/head.png"
                             alt="AI Head"
                             className="w-[420px] relative z-10"
                         />
@@ -65,7 +65,7 @@ function Hero() {
 
                 {/* FLOATING SPHERE */}
                 <img
-                    src="/images/sphere.webp"
+                    src="/assets/sphere.png"
                     alt="Sphere"
                     className="
       absolute bottom-28 left-1/2
