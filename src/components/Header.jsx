@@ -1,28 +1,29 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import QuickPanel from "./QuickPanel";
-
+import MobileMenu from "./MobileMenu";
 function Header() {
   const [isVisible, setIsVisible] = useState(true);
   const [isPanelOpen, setIsPanelOpen] = useState(false);
-
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [openDropdown, setOpenDropdown] = useState(null);
+  
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+    useEffect(() => {
+      const handleScroll = () => {
+        const currentScrollY = window.scrollY;
 
-      // determine scroll phase
-      const scrolled = currentScrollY > 120;
-      setIsScrolled(scrolled);
+        // determine scroll phase
+        const scrolled = currentScrollY > 120;
+        setIsScrolled(scrolled);
 
-      // hide/show ONLY before bg change
-      if (!scrolled) {
-        if (currentScrollY > lastScrollY && currentScrollY > 60) {
-          setIsVisible(false);
-        } else {
+        // hide/show ONLY before bg change
+        if (!scrolled) {
+          if (currentScrollY > lastScrollY && currentScrollY > 60) {
+            setIsVisible(false);
+          } else {
           setIsVisible(true);
         }
       } else {
@@ -45,6 +46,10 @@ function Header() {
         isOpen={isPanelOpen}
         onClose={() => setIsPanelOpen(false)}
       />
+          <MobileMenu
+    isOpen={isMobileMenuOpen}
+    onClose={() => setIsMobileMenuOpen(false)}
+  />
 
       <header
         className={`
@@ -107,28 +112,70 @@ function Header() {
                 </span>
 
                 <div
-                  className={`
-                  absolute top-full left-0 mt-4 w-56
-                  bg-[rgb(7,9,38)]
-                  transition-all duration-300 ease-out
-                  ${openDropdown === "services" && isVisible
-                      ? "opacity-100 translate-y-0 pointer-events-auto"
-                      : "opacity-0 -translate-y-3 pointer-events-none"
-                    }
-                `}
-                >
-                  <ul className="py-3">
-                    {["Virtual Tour", "3D Rendering", "AI Based Video"].map(
-                      (item) => (
-                        <li
-                          key={item}
-                          className="px-4 py-2 text-white hover:text-[rgb(101,255,75)] transition-colors duration-300"
-                        >
-                          {item}
-                        </li>
-                      )
-                    )}
-                  </ul>
+  className={`
+    absolute top-full left-0 pt-4 w-56
+    bg-[rgb(7,9,38)]
+    transition-all duration-300 ease-out
+    ${openDropdown === "services" && isVisible
+      ? "opacity-100 translate-y-0 pointer-events-auto"
+      : "opacity-0 -translate-y-3 pointer-events-none"
+    }
+  `}
+>
+
+<ul className="py-3">
+  <li>
+    <NavLink
+      to="/services/virtual-tour"
+      className={({ isActive }) =>
+        `
+          block px-4 py-2
+          transition-colors duration-300
+          ${isActive
+            ? "text-[rgb(101,255,75)]"
+            : "text-white hover:text-[rgb(101,255,75)]"}
+        `
+      }
+    >
+      Virtual Tour
+    </NavLink>
+  </li>
+
+  <li>
+    <NavLink
+      to="/services/3d-rendering"
+      className={({ isActive }) =>
+        `
+          block px-4 py-2
+          transition-colors duration-300
+          ${isActive
+            ? "text-[rgb(101,255,75)]"
+            : "text-white hover:text-[rgb(101,255,75)]"}
+        `
+      }
+    >
+      3D Rendering
+    </NavLink>
+  </li>
+
+  <li>
+    <NavLink
+      to="/services/ai-video"
+      className={({ isActive }) =>
+        `
+          block px-4 py-2
+          transition-colors duration-300
+          ${isActive
+            ? "text-[rgb(101,255,75)]"
+            : "text-white hover:text-[rgb(101,255,75)]"}
+        `
+      }
+    >
+      AI Based Video
+    </NavLink>
+  </li>
+</ul>
+
                 </div>
               </li>
 
@@ -196,8 +243,41 @@ function Header() {
 
 
             </ul>
+            {/* Mobile Controls */}
+<div className="flex items-center gap-4 lg:hidden">
+  
+  {/* Quick Panel Button */}
+  <button
+    onClick={() => setIsPanelOpen(true)}
+    aria-label="Open quick panel"
+    className="grid grid-cols-3 gap-[4px] p-1"
+  >
+    {[...Array(9)].map((_, i) => (
+      <span
+        key={i}
+        className="w-[6px] h-[6px] rounded-sm bg-white"
+      />
+    ))}
+  </button>
+
+  {/* Hamburger Button */}
+  <button
+    onClick={() => setIsMobileMenuOpen(true)}
+    aria-label="Open mobile menu"
+    className="flex flex-col gap-1.5 p-2"
+  >
+    <span className="w-6 h-0.5 bg-white"></span>
+    <span className="w-6 h-0.5 bg-white"></span>
+    <span className="w-6 h-0.5 bg-white"></span>
+  </button>
+
+</div>
+
           </div>
+          
         </nav>
+       
+
       </header>
     </>
   );
